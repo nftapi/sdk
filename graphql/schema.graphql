@@ -1,0 +1,60 @@
+type Attribute {
+  trait: String
+  value: String
+}
+
+type AggregateAttrbute {
+  trait: String!
+  values: [AggregateAttrbuteValue]!
+}
+
+type AggregateAttrbuteValue {
+  value: String!
+  count: Int
+}
+
+type Contract {
+  id: String!
+  createdAt: String!
+  updatedAt: String!
+  address: String!
+  name: String
+  symbol: String
+  totalSupply: Int
+  mintSupply: Int
+  token(tokenId: Int!): Token
+  tokens(skip: Int, limit: Int, order: String): [Token]!
+  attributes: [AggregateAttrbute]!
+}
+
+type Token {
+  id: String!
+  tokenId: Int!
+  createdAt: String!
+  updatedAt: String!
+  name: String
+  description: String
+  image: String
+  thumbnailImage: String
+  position: Int
+  avgRarity: Float
+  statRarity: Float
+  openseaUrl: String!
+  attributes: [Attribute]!
+}
+
+type Query {
+  listContracts(address: [String], skip: Int, limit: Int, order: String): [Contract]!
+  getContract(address: String!): Contract
+  subscribeContract(address: String!): Contract
+}
+
+type Mutation {
+  addContract(address: String!): Contract
+  reindex(address: String!, tokenIds: [Int]): Boolean
+  reaggregate(address: String!): Boolean
+}
+
+type Subscription {
+  subscribeContract(address: String!): Contract
+}
