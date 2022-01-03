@@ -7,11 +7,11 @@ npm install --save nftapi
 # Usage
 
 ```typescript
-import nftapi from "nftapi";
+import nftapi from 'nftapi'
 
 nftapi.init({
-  apiKey: "", // Replace with your NFTAPI Key
-});
+  apiKey: '', // Replace with your NFTAPI Key
+})
 ```
 
 # GraphQL
@@ -22,25 +22,28 @@ Connect directly to the NFTAPI's GraphQL endpoint:
 
 ## `getContract()`
 
-```typescript
+Client
 
+```typescript
+import client from 'nftapi'
+
+client.getContract({ address: '0x123' }).get({
+  id: true,
+  name: true,
+  symbol: true,
+})
 ```
 
-Raw GraphQL query
+GraphQL
 
-```typescript
-nftapi.query({
-  getContract: [
-    {
-      address: "0x123",
-    },
-    {
-      id: true,
-      name: true,
-      symbol: true,
-    },
-  ],
-});
+```GraphQL
+query {
+  getContract(address: "") {
+    id
+    name
+    symbol
+  }
+}
 ```
 
 ## `getToken()`
